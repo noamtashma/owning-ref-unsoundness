@@ -3,7 +3,7 @@
 This article is about the unsound api which I found in [`owning_ref`]. [`Owning_ref`] is a library that has 11 million all-time downloads and 60 reverse dependencies. In this article I will introduce [`owning_ref`], explain the problems and discuss solving them.
 
 ## tl;dr and some links
-I found a few unsound functions in the [`owning_ref`] library. Two of them have been found in the past but weren't fixed. The issue is at *TODO* and my fork fixing the problems is at *TODO*. The current status regarding unsafety in [`owning_ref`] is detailed [here](#previous-status). The examples of unsoundness can be found in this repository in *TODO*.
+I found a few unsound functions in the [`owning_ref`] library. Two of them have been found in the past but weren't fixed. The issue is [here](https://github.com/Kimundi/owning-ref-rs/issues/77) and my fork fixing the problems is [here](https://github.com/noamtashma/owning-ref-rs/tree/fix_unsound_map) with a pull request [here](https://github.com/Kimundi/owning-ref-rs/pull/78). The current status regarding unsafety in [`owning_ref`] is detailed [here](#previous-status). The examples of unsoundness can be found in this repository in the `src` folder and are runnable by `cargo run`.
 
 ## Introduction to [`owning_ref`]
 This section is an introduction to [`owning_ref`]. If you already know the library, you can skip it.
@@ -270,7 +270,7 @@ In conclusion:
 
 * Users of this library (and all Rust libraries) rely on its safety. If safety issues are uncovered it's important to give them the attention they deserve and make sure they get fixed. Safety problems in[`Owning_ref`] were discovered almost 2 years ago but have yet to be fixed. 
 
-* I submitted a PR to *TODO* which is based on *TODO* and fixes the issues I discussed here. I hope this will help the maintainers of [`OwningRef`] implement a solution. 
+* I submitted a [PR](https://github.com/Kimundi/owning-ref-rs/pull/78) which is based on [this fork](https://github.com/steffahn/owning-ref-rs) and fixes the issues I discussed here. I hope this will help the maintainers of [`OwningRef`] implement a solution.
 
 [`owning_ref`]: https://docs.rs/owning_ref/latest/owning_ref/index.html
 [`OwningRef`]: https://docs.rs/owning_ref/latest/owning_ref/struct.OwningRef.html
