@@ -27,12 +27,12 @@ impl OwningRef<O, T> {
   pub fn map<F, U: ?Sized>(self, f: F) -> OwningRef<O, U>
     where
         O: StableAddress,
-        F: FnOnce(&T) -> &U, 
+        F: FnOnce(&T) -> &U;
 
   pub fn map_with_owner<F, U: ?Sized>(self, f: F) -> OwningRef<O, U>
     where
         O: StableAddress,
-        F: for<'a> FnOnce(&'a O, &'a T) -> &'a U, 
+        F: for<'a> FnOnce(&'a O, &'a T) -> &'a U;
 }
 ```
 And mutable counterparts:
@@ -41,12 +41,12 @@ impl OwningRefMut<O, T> {
   pub fn map<F, U: ?Sized>(self, f: F) -> OwningRef<O, U>
     where
         O: StableAddress,
-        F: FnOnce(&mut T) -> &U, 
+        F: FnOnce(&mut T) -> &U;
 
   pub fn map_mut<F, U: ?Sized>(self, f: F) -> OwningRefMut<O, U>
     where
         O: StableAddress,
-        F: FnOnce(&mut T) -> &mut U,
+        F: FnOnce(&mut T) -> &mut U;
 }
 ```
 
@@ -63,7 +63,7 @@ impl OwningRef<O, T> {
   pub fn new(o: O) -> Self
     where
         O: StableAddress,
-        O: Deref<Target = T>, 
+        O: Deref<Target = T>;
 }
 
 impl OwningRefMut<O, T> {
@@ -72,7 +72,7 @@ impl OwningRefMut<O, T> {
   pub fn new(o: O) -> Self
     where
         O: StableAddress,
-        O: DerefMut<Target = T>, 
+        O: DerefMut<Target = T>;
 }
 ```
 
@@ -80,20 +80,20 @@ In addition, here are a few more important methods from [`owning_ref`], which ac
 
 ```rust
 impl OwningRef<O, T> {
-  pub fn as_owner(&self) -> &O
+  pub fn as_owner(&self) -> &O;
 
-  pub fn into_owner(self) -> O
+  pub fn into_owner(self) -> O;
 }
 ```
 
 And mutable counterparts:
 ```rust
 impl OwningRefMut<O, T> {
-  pub fn as_owner(&self) -> &O
+  pub fn as_owner(&self) -> &O;
 
-  pub fn as_owner_mut(&mut self) -> &mut O
+  pub fn as_owner_mut(&mut self) -> &mut O;
 
-  pub fn into_owner(self) -> O
+  pub fn into_owner(self) -> O;
 }
 ```
 
@@ -206,7 +206,7 @@ The "unstable address" problem by itself can be fixed quite easily. Just don't g
 ```rust
 pub fn map_with_owner<F, U: ?Sized>(self, f: F) -> OwningRef<'t, O, U>
     where O: StableAddress + Deref,
-        F: for<'a> FnOnce(&'a O::Target, &'a T) -> &'a U
+        F: for<'a> FnOnce(&'a O::Target, &'a T) -> &'a U;
 ```
 And now the new reference can't point to the owner anymore.
 
